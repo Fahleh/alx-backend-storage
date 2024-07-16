@@ -8,8 +8,8 @@ def print_nginx_request_logs(nginx_collection):
     """Prints some stats about Nginx request logs."""
     print('{} logs'.format(nginx_collection.count_documents({})))
     print('Methods:')
-    method_list = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-    for method in method_list:
+    methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+    for method in methods:
         count = len(list(nginx_collection.find({'method': method})))
         print('\tmethod {}: {}'.format(method, count))
     stat_counter = len(list(
