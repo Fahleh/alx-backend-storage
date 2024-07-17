@@ -58,7 +58,7 @@ def replay(fn: Callable) -> None:
         print('{}(*{}) -> {}'.format(
             method_name,
             input_method.decode("utf-8"),
-            output_method,
+            output_method.decode("utf-8"),
         ))
 
 
