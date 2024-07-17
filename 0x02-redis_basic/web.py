@@ -15,13 +15,12 @@ def create_cache(method: Callable) -> Callable:
     @wraps(method)
     def initialize(url) -> str:
         """The wrapper function for caching the output."""
-        redis_store.incr(f"count:{url}")
-        response = redis_store.get(f"result:{url}")
+        redis_store.incr(f"count: {url}")
+        response = redis_store.get(f"result: {url}")
         if response:
             return response.decode("utf-8")
         response = method(url)
-        redis_store.set(f"count:{url}", 0)
-        redis_store.setex(f"result:{url}", 10, response)
+        redis_store.setex(f"result: {url}", 10, response)
         return response
     return initialize
 
