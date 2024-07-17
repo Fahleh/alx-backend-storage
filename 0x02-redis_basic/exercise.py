@@ -47,15 +47,15 @@ def replay(fn: Callable) -> None:
     if not isinstance(store, redis.Redis):
         return
     method_name = fn.__qualname__
-    key_input = '{}:inputs'.format(method_name)
-    key_output = '{}:outputs'.format(method_name)
+    key_input = "{}:inputs".format(method_name)
+    key_output = "{}:outputs".format(method_name)
     call_count = store.get(method_name)
     call_count = int(call_count) if call_count else 0
-    print('{} was called {} times:'.format(method_name, call_count))
+    print("{} was called {} times:".format(method_name, call_count))
     input_fns = store.lrange(key_input, 0, -1)
     output_fns = store.lrange(key_output, 0, -1)
     for input_method, output_method in zip(input_fns, output_fns):
-        print('{}(*{}) -> {}'.format(
+        print("{}(*{}) -> {}".format(
             method_name,
             input_method.decode("utf-8"),
             output_method.decode("utf-8"),
@@ -66,6 +66,7 @@ class Cache:
     """
     Represents an object for storing data in a Redis data storage.
     """
+
     def __init__(self) -> None:
         """Initializes a Cache instance.
         """
@@ -86,7 +87,7 @@ class Cache:
             self,
             key: str,
             fn: Callable = None,
-            ) -> Union[str, bytes, int, float]:
+    ) -> Union[str, bytes, int, float]:
         """Retrieves data from a Redis storage."""
         result = self._redis.get(key)
         return fn(result) if fn is not None else result
