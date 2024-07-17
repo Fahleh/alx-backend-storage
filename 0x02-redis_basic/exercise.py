@@ -41,9 +41,9 @@ def replay(fn: Callable) -> None:
     """
     Displays the call history of a Cache class' method.
     """
-    if fn is None or not hasattr(fn, '__self__'):
+    if fn is None or not hasattr(fn, "__self__"):
         return
-    store = getattr(fn.__self__, '_redis', None)
+    store = getattr(fn.__self__, "_redis", None)
     if not isinstance(store, redis.Redis):
         return
     method_name = fn.__qualname__
