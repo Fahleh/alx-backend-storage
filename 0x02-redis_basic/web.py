@@ -28,7 +28,6 @@ def create_cache(method: Callable) -> Callable:
 @create_cache
 def get_page(url: str) -> str:
     """
-    Returns the URL content after caching the response,
-    and tracking the request.
+    Returns the HTML content of a given URL
     """
     return requests.get(url).text
