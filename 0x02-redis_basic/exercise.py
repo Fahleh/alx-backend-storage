@@ -49,9 +49,8 @@ def replay(fn: Callable) -> None:
     method_name = fn.__qualname__
     key_input = '{}:inputs'.format(method_name)
     key_output = '{}:outputs'.format(method_name)
-    call_count = 0
-    if store.exists(method_name) != 0:
-        call_count = int(store.get(method_name))
+    call_count = store.get(method_name)
+    call_count = int(call_count) if call_count else 0
     print('{} was called {} times:'.format(method_name, call_count))
     input_fns = store.lrange(key_input, 0, -1)
     output_fns = store.lrange(key_output, 0, -1)
